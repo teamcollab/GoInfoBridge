@@ -20,6 +20,6 @@ public class QuerySender implements CommandLineRunner {
         System.out.println("Waiting five seconds...");
         Thread.sleep(5000);
         System.out.println("Sending message...");
-        rabbitTemplate.convertAndSend("spring-boot", "Hello from RabbitMQ!");
+        rabbitTemplate.convertAndSend("spring-boot", "Hello from RabbitMQ! YA");
     }
 }
