@@ -24,5 +24,6 @@ public class Receiver {
 
 
         System.out.println("Received <" + map + ">");
+
     }
 }

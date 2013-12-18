@@ -45,16 +45,4 @@ public class ApiController {
 
         return "msg is sended";
     }
-
-//    @RequestMapping("/customer/show")
-//    @ResponseBody
-//    public List<Customer> list(
-//            @RequestParam(value="lastName", required=true) String lastName) {
-//
-//
-//        List<Customer> customers = customerRepository.findByLastName(lastName);
-//
-//        return customers;
-//    }
-
 }
