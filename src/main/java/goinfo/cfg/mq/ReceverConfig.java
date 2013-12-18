@@ -1,4 +1,4 @@
-package goinfo.configure;
+package goinfo.cfg.mq;
 
 import goinfo.mq.Receiver;
 import org.springframework.amqp.core.Binding;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class MQManager {
+public class ReceverConfig {
 
 
     final static String queueName = "spring-boot";

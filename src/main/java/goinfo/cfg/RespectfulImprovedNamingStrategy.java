@@ -1,4 +1,4 @@
-package goinfo.configure;
+package goinfo.cfg;
 
 import org.hibernate.cfg.ImprovedNamingStrategy;
 
