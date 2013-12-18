@@ -16,7 +16,7 @@ import java.util.Map;
 public class ApiController {
 
     @Autowired
-    RabbitTemplate rabbitTemplate;
+    RabbitTemplate amqpTemplate;
 
     @RequestMapping("/test/sendMsg")
     @ResponseBody
@@ -40,9 +40,9 @@ public class ApiController {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-
-        rabbitTemplate.convertAndSend("spring-boot", finalJsonString);
-
-        return "msg is sended";
+        System.out.println("amqpTemplate.getUUID() = "+ amqpTemplate.getUUID());
+        Object o = amqpTemplate.convertSendAndReceive("spring-boot", finalJsonString);
+        System.out.println("reply = "+ o);
+        return "msg is sended ";
     }
 }

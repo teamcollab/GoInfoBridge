@@ -1,46 +1,43 @@
 package goinfo.cfg.mq;
 
-import goinfo.mq.Replyer;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ReplyerConfig {
+public class ServerConfig {
 
 
-    final static String queueName = "spring-boot.reply";
+    final static String queueName = "spring-boot.reply1234";
+
+    @Autowired
+    ConnectionFactory connectionFactory;
 
 
     @Bean
-    public RabbitTemplate replyAmqpTemplate(ConnectionFactory connectionFactory) {
-
+    public RabbitTemplate amqpTemplate() {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-        rabbitTemplate.setReplyQueue(replyQueue());
-        rabbitTemplate.setReplyTimeout(60000);
+        rabbitTemplate.setReplyQueue(responseQueue());
+        rabbitTemplate.setReplyTimeout(5000);
+        System.out.println("rabbitTemplate.getUUID() = "+ rabbitTemplate.getUUID());
         return rabbitTemplate;
-
     }
-
     @Bean
-    public SimpleMessageListenerContainer replyListenerContainer(ConnectionFactory connectionFactory, RabbitTemplate replyAmqpTemplate) {
+    public SimpleMessageListenerContainer listenerContainer() {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
-        container.setQueues(replyQueue());
-        container.setMessageListener(replyAmqpTemplate);
+        container.setQueues(responseQueue());
+        container.setMessageListener(amqpTemplate());
+
         return container;
     }
-
     @Bean
-    public Queue replyQueue() {
+    public Queue responseQueue() {
         return new Queue(queueName);
-    }
-    @Bean
-    public Replyer replyer(RabbitTemplate replyAmqpTemplate) {
-        return new Replyer(replyAmqpTemplate);
     }
 
 }
