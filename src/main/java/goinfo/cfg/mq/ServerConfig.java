@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class ServerConfig {
 
 
-    final static String queueName = "spring-boot.reply1234";
+    final static String queueName = "reply";
 
     @Autowired
     ConnectionFactory connectionFactory;
