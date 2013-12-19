@@ -12,16 +12,16 @@ import java.util.Map;
 @Service
 public class QueryService{
 
-    @Autowired
-    private Environment env;
+    @Autowired private Environment env;
+    @Autowired private JdbcTemplate jdbcTemplate;
+    @Autowired private ParserService parserService;
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
+    public Map excute(String params) {
+        Map map = parserService.stringToMap(params);
+        return excute(map);
+    }
 
     public Map excute(Map params) {
-
-
         Map result = new HashMap();
 
         result.put("success", true);
@@ -35,5 +35,12 @@ public class QueryService{
 
 
         return result;
+    }
+
+    public String excuteAndGetJson(Map params) {
+        return parserService.mapToJsonString(excute(params));
+    }
+    public String excuteAndGetJson(String params) {
+        return parserService.mapToJsonString(excute(params));
     }
 }

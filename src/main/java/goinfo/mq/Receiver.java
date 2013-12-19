@@ -1,38 +1,22 @@
 
 package goinfo.mq;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import goinfo.service.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Receiver {
 
     @Autowired
     private QueryService queryService;
 
-	public String receiveMessage(Object message) {
+	public String receiveMessage(String message) {
 
-        HashMap<String, Object> map = new HashMap<String,Object>();
-        ObjectMapper mapper = new ObjectMapper();
+        System.out.println("receive :" +message);
 
-        try {
-            map = mapper.readValue(message.toString(),
-                    new TypeReference<HashMap<String,Object>>(){});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String json = queryService.excuteAndGetJson(message);
 
-        String action = map.get("action").toString();
-
-        Map result = queryService.excute(map);
-
-
-        return result.toString();
-
+        System.out.println("reply   :" +json);
+        return json;
     }
 }

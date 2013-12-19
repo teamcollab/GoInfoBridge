@@ -1,7 +1,6 @@
 package goinfo.test;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import goinfo.service.ParserService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +17,9 @@ public class TestController {
     @Autowired
     RabbitTemplate amqpTemplate;
 
+    @Autowired
+    ParserService parserService;
+
     @RequestMapping("/test/sendMsg")
     @ResponseBody
     public String sendMsg() {
@@ -31,15 +33,15 @@ public class TestController {
         message.put("values", new HashMap());
         message.put("queryname", "selectall");
 
-        ObjectMapper mapper = new ObjectMapper();
-        String finalJsonString = null;
-        try {
-            finalJsonString = mapper.writeValueAsString(message);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        String finalJsonString = parserService.mapToJsonString(message);
+
+
+        System.out.println("send     : "+ finalJsonString);
         Object o = amqpTemplate.convertSendAndReceive("spring-boot", finalJsonString);
-        System.out.println("reply = "+ o);
-        return "msg is sended reply = "+ o;
+
+        String result = "get reply: "+ o;
+
+        System.out.println(result);
+        return result;
     }
 }
