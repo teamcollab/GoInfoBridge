@@ -3,7 +3,6 @@ package goinfo.cfg;
 import goinfo.mq.Receiver;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.context.annotation.Bean;
@@ -42,8 +41,8 @@ public class MqServerConfig {
     }
 
     @Bean
-    Receiver receiver(RabbitTemplate rabbitTemplate) {
-        return new Receiver(rabbitTemplate);
+    Receiver receiver() {
+        return new Receiver();
     }
 
     @Bean

@@ -25,12 +25,10 @@ public class TestController {
         Map message = new HashMap<String, Object>();
 
         message.put("username", "admin");
+        message.put("password", "password");
 
         message.put("action", "query");  // update, delete, query
-
-        message.put("password", "password");
-        message.put("table", "GHSAHMS1");
-        message.put("params", new HashMap());
+        message.put("values", new HashMap());
         message.put("queryname", "selectall");
 
         ObjectMapper mapper = new ObjectMapper();
@@ -40,9 +38,8 @@ public class TestController {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        System.out.println("amqpTemplate.getUUID() = "+ amqpTemplate.getUUID());
         Object o = amqpTemplate.convertSendAndReceive("spring-boot", finalJsonString);
         System.out.println("reply = "+ o);
-        return "msg is sended ";
+        return "msg is sended reply = "+ o;
     }
 }

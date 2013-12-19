@@ -23,7 +23,6 @@ public class MqClientConfig {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setReplyQueue(responseQueue());
         rabbitTemplate.setReplyTimeout(5000);
-        System.out.println("rabbitTemplate.getUUID() = "+ rabbitTemplate.getUUID());
         return rabbitTemplate;
     }
     @Bean
