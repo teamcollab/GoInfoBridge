@@ -1,4 +1,4 @@
-package goinfo.cfg.mq;
+package goinfo.cfg;
 
 import goinfo.mq.Receiver;
 import org.springframework.amqp.core.Queue;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ClientConfig {
+public class MqServerConfig {
 
 
     final static String queueName = "spring-boot";

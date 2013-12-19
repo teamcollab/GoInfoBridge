@@ -1,4 +1,4 @@
-package goinfo.cfg.mq;
+package goinfo.test;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ServerConfig {
+public class MqClientConfig {
 
 
     final static String queueName = "reply";

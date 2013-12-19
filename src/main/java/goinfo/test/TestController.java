@@ -1,4 +1,4 @@
-package goinfo.web;
+package goinfo.test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 
 @Controller
-public class ApiController {
+public class TestController {
 
     @Autowired
     RabbitTemplate amqpTemplate;
