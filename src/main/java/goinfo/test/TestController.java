@@ -30,8 +30,13 @@ public class TestController {
         message.put("password", "password");
 
         message.put("action", "query");  // update, delete, query
-        message.put("values", new HashMap());
-        message.put("queryname", "selectall");
+
+        Map values = new HashMap();
+
+        values.put("Code","A00");
+
+        message.put("values", values);
+        message.put("queryname", "selectsome");
 
         String finalJsonString = parserService.mapToJsonString(message);
 

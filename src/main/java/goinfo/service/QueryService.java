@@ -3,6 +3,7 @@ package goinfo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -14,6 +15,7 @@ public class QueryService{
 
     @Autowired private Environment env;
     @Autowired private JdbcTemplate jdbcTemplate;
+    @Autowired private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     @Autowired private ParserService parserService;
 
     public Map excute(String params) {
@@ -28,8 +30,16 @@ public class QueryService{
 
         String queryname = params.get("queryname").toString();
         String querysql = env.getProperty(queryname);
+        Map values = new HashMap();
 
-        List data = jdbcTemplate.queryForList(querysql);
+        if(params.containsKey("values"))
+            values = (Map) params.get("values");
+
+        List data = null;
+
+        if(values.size()>0)
+            data = namedParameterJdbcTemplate.queryForList(querysql, (Map<String, ?>) params.get("values"));
+        else data = jdbcTemplate.queryForList(querysql);
 
         result.put("data",data);
 
