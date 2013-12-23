@@ -6,17 +6,26 @@
 	<packaging>jar</packaging>
     <version>1.0.0</version>
 
+    <properties>
+        <java.version>1.7</java.version>
+        <spring-boot.version>0.5.0.BUILD-SNAPSHOT</spring-boot.version>
+    </properties>
+
 	
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>0.5.0.M6</version>
+        <version>${spring-boot.version}</version>
     </parent>
 
-
-
 	<dependencies>
-        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <classifier>tests</classifier>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -26,12 +35,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot</artifactId>
-			<classifier>tests</classifier>
-			<version>0.5.0.M6</version>
-		</dependency>
+
 
         <dependency>
             <groupId>net.sourceforge.jtds</groupId>
@@ -52,7 +56,18 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
             <version>0.5.0.M6</version>
         </dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>4.0.0.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>

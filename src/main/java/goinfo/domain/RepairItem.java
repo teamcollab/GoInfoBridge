@@ -11,7 +11,6 @@ import javax.persistence.*;
 public class RepairItem {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     @Getter @Setter @Column(unique=true, name="Code") private String code;
     @Getter @Setter @Column(name="Name") private String name;
     @Getter @Setter @Column(name="Note") private String note;
