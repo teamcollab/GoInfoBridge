@@ -7,12 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class AmqpService {
 
     @Autowired
-    private QueryApiService queryApiService;
+    private ExcuteService excuteService;
 
 	public String receiveMessage(String message) {
 
-        String json = queryApiService.excuteAndGetJson(message);
-
-        return json;
+        return excuteService.excute(message);
     }
 }

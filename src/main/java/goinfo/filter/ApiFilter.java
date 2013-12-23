@@ -20,7 +20,7 @@ public class ApiFilter {
     ConvertService convertService;
 
     @Around("execution(* *..*ApiService.*(..))")
-    public String logAndHandleException(ProceedingJoinPoint joinPoint) {
+    public Map logAndHandleException(ProceedingJoinPoint joinPoint) {
         Log logger = LogFactory.getLog(joinPoint.getTarget().getClass());
 
         logger.info("\n    input: " + joinPoint.getArgs()[0]);
@@ -35,13 +35,13 @@ public class ApiFilter {
             resultMap.put("errorMessage", throwable.getLocalizedMessage());
             logger.error(throwable);
 
-            result = convertService.mapToJsonString(resultMap);
+            result = resultMap;
 
         }
 
         logger.info("\n    result: " + result);
 
-        return result.toString();
+        return (Map) result;
     }
 
 

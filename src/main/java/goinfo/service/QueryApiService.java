@@ -1,7 +1,6 @@
 package goinfo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -14,15 +13,9 @@ import java.util.Map;
 @Service
 public class QueryApiService {
 
-    @Autowired private Environment env;
     @Autowired private JdbcTemplate jdbcTemplate;
     @Autowired private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    @Autowired private ConvertService convertService;
 
-    public Map excute(String params) {
-        Map map = convertService.stringToMap(params);
-        return excute(map);
-    }
 
     public Map excute(Map params) {
         Map result = new HashMap();
@@ -57,10 +50,5 @@ public class QueryApiService {
         return result;
     }
 
-    public String excuteAndGetJson(Map params) {
-        return convertService.mapToJsonString(excute(params));
-    }
-    public String excuteAndGetJson(String params) {
-        return convertService.mapToJsonString(excute(params));
-    }
+
 }
