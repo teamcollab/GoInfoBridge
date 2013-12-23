@@ -1,6 +1,8 @@
 package goinfo.web;
 
-import goinfo.service.QueryService;
+import goinfo.service.QueryApiService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class RestController {
 
+    private static Log logger = LogFactory.getLog(RestController.class);
+
     @Autowired
-    private QueryService queryService;
+    private QueryApiService queryApiService;
 
 
     @RequestMapping(value ="/rest/query" , method = RequestMethod.POST
@@ -23,7 +27,9 @@ public class RestController {
             , produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String query(@RequestParam(value="params", required=true)String params) {
-        String json = queryService.excuteAndGetJson(params);
+
+        String json = queryApiService.excuteAndGetJson(params);
+
         return json;
     }
 }

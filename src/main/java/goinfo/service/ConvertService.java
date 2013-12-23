@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class ParserService {
+public class ConvertService {
 
     public Map stringToMap(String message){
         HashMap<String, Object> map = new HashMap<String,Object>();

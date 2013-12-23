@@ -1,6 +1,6 @@
 package goinfo.test;
 
-import goinfo.service.ParserService;
+import goinfo.service.ConvertService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,7 @@ public class TestController {
     RabbitTemplate amqpTemplate;
 
     @Autowired
-    ParserService parserService;
+    ConvertService convertService;
 
     @RequestMapping("/test/sendMsg")
     @ResponseBody
@@ -38,7 +38,7 @@ public class TestController {
         message.put("values", values);
         message.put("queryname", "selectsome");
 
-        String finalJsonString = parserService.mapToJsonString(message);
+        String finalJsonString = convertService.mapToJsonString(message);
 
 
         System.out.println("send     : "+ finalJsonString);
