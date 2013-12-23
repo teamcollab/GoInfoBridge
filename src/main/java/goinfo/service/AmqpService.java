@@ -1,11 +1,10 @@
 
-package goinfo.mq;
+package goinfo.service;
 
-import goinfo.service.QueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-public class Receiver {
+public class AmqpService {
 
     @Autowired
     private QueryService queryService;
