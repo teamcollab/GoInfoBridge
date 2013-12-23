@@ -59,5 +59,20 @@ public class ApplicationTests {
         this.mvc.perform(post("/rest/query").contentType(MediaType.APPLICATION_FORM_URLENCODED).param("params", jsonStr)).andExpect(status().isOk())
                 .andExpect(content().string("{\"data\":[{\"CODE\":\"A001\",\"NAME\":\"A001\",\"NOTE\":null}],\"success\":true}"));
     }
+    @Test
+    public void testQueryFail() throws Exception {
+
+        String jsonStr = "{\n" +
+                "    \"username\": \"admin\",\n" +
+                "    \"values\": {},\n" +
+                "    \"queryname\": \"selecterror\",\n" +
+                "    \"action\": \"query\",\n" +
+                "    \"password\": \"password\"\n" +
+                "}";
+
+        this.mvc.perform(post("/rest/query").contentType(MediaType.APPLICATION_FORM_URLENCODED).param("params", jsonStr)).andExpect(status().isOk())
+                .andExpect(content().string("{\"errorMessage\":\"StatementCallback; bad SQL grammar [select * from GHSAHMS]; nested exception is java.sql.SQLSyntaxErrorException: user lacks privilege or object not found: GHSAHMS\",\"success\":false}"));
+    }
+
 
 }

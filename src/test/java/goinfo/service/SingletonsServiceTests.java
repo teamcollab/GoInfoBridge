@@ -24,13 +24,13 @@ public class SingletonsServiceTests {
     public OutputCapture outputCapture = new OutputCapture();
 
     @Test
-    public void testCommandLineOverrides() throws Exception {
+    public void testDynamicPropertiesLoad() throws Exception {
 
         System.out.println(SingletonsService.getQueriesProperties().getProperty("selectall"));
 
         String output = this.outputCapture.toString();
 
         assertTrue(output, output.startsWith("select"));
-}
+    }
 
 }

@@ -16,13 +16,12 @@ import java.util.Map;
 @Component
 public class ApiFilter {
 
-        @Autowired
-        ConvertService convertService;
+    @Autowired
+    ConvertService convertService;
 
-        @Around("execution(* *..*ApiService.*(..))")
-        public String logAndHandleException(ProceedingJoinPoint joinPoint) {
+    @Around("execution(* *..*ApiService.*(..))")
+    public String logAndHandleException(ProceedingJoinPoint joinPoint) {
         Log logger = LogFactory.getLog(joinPoint.getTarget().getClass());
-
 
         logger.info("\n    input: " + joinPoint.getArgs()[0]);
 
@@ -41,10 +40,6 @@ public class ApiFilter {
         }
 
         logger.info("\n    result: " + result);
-
-
-
-
 
         return result.toString();
     }

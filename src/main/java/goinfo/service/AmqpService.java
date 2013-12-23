@@ -11,11 +11,8 @@ public class AmqpService {
 
 	public String receiveMessage(String message) {
 
-        System.out.println("receive :" +message);
-
         String json = queryApiService.excuteAndGetJson(message);
 
-        System.out.println("reply   :" +json);
         return json;
     }
 }
