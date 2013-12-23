@@ -29,9 +29,10 @@ public class QueryService{
         result.put("success", true);
 
         String queryname = params.get("queryname").toString();
-        String querysql = env.getProperty(queryname);
-        Map values = new HashMap();
 
+        String querysql = SingletonsService.getQueriesProperties().getProperty(queryname);
+
+        Map values = new HashMap();
         if(params.containsKey("values"))
             values = (Map) params.get("values");
 
