@@ -35,12 +35,13 @@ public class ApiFecadeService {
     public Map excute(Map params){
 
         Assert.notNull(params.get("action"), "action must not be null");
+        Assert.notNull(params.get("queryname"), "queryname must not be null");
 
         String action = params.get("action").toString();
         Map result =null;
         if(action.equals("query")){
             result = queryService.excute(params);
-        }else if(action.equals("update")){
+        }else if(action.equals("update") || action.equals("delete") || action.equals("create")){
             result = updateService.excute(params);
         }
         return result;

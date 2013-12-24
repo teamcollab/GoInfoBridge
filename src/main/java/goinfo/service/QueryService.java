@@ -21,7 +21,7 @@ public class QueryService {
 
     public Map excute(Map params) {
 
-        Assert.notNull(params.get("queryname"), "queryname must not be null");
+
         String queryname = params.get("queryname").toString();
         String querysql = propertiesHoldService.getQueriesProperty(queryname);
 

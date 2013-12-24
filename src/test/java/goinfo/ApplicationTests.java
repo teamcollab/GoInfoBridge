@@ -119,6 +119,8 @@ public class ApplicationTests {
         Map result = convertService.stringToMap(mvcResult.getResponse().getContentAsString());
 
         assert result.get("success").equals(true);
+
+        System.out.println(result);
     }
 
     @Test
@@ -146,6 +148,65 @@ public class ApplicationTests {
 
         assert result.get("success").equals(false);
         assert !result.get("errorMessage").equals("");
+    }
+    @Test
+    public void testUDelete() throws Exception {
+
+        Map values = new HashMap();
+        values.put("Code","A001");
+
+
+        Map params =new HashMap<String, String>();
+
+        params.put("username", "admin");
+        params.put("password", "password");
+        params.put("action", "delete");
+        params.put("queryname", "deleteone");
+        params.put("values", values);
+
+
+        String jsonStr = convertService.mapToJsonString(params);
+
+        MvcResult mvcResult = this.mvc.perform(post("/rest/api")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED).param("params", jsonStr))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        Map result = convertService.stringToMap(mvcResult.getResponse().getContentAsString());
+
+        assert result.get("success").equals(true);
+
+        System.out.println(result);
+    }
+    @Test
+    public void testUCreate() throws Exception {
+        Map values = new HashMap();
+        values.put("Code","A001_CREATE");
+        values.put("Name","A001_CREATE");
+        values.put("Note","note_CRETAE");
+
+
+        Map params =new HashMap<String, String>();
+
+        params.put("username", "admin");
+        params.put("password", "password");
+        params.put("action", "create");
+        params.put("queryname", "createone");
+        params.put("values", values);
+
+
+        String jsonStr = convertService.mapToJsonString(params);
+
+        MvcResult mvcResult = this.mvc.perform(post("/rest/api")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED).param("params", jsonStr))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        Map result = convertService.stringToMap(mvcResult.getResponse().getContentAsString());
+
+        assert result.get("success").equals(true);
+
+        System.out.println(result);
     }
 
 

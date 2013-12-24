@@ -5,7 +5,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,9 +20,6 @@ public class UpdateService {
 
 
     public Map excute(Map params) {
-
-
-        Assert.notNull(params.get("queryname"), "queryname must not be null");
 
 
         String queryname = params.get("queryname").toString();
