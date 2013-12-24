@@ -1,6 +1,7 @@
 package goinfo;
 
 
+import goinfo.service.ConvertService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +15,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -30,6 +34,9 @@ public class ApplicationTests {
     @Autowired
     private WebApplicationContext context;
 
+    @Autowired
+    private ConvertService convertService;
+
     private MockMvc mvc;
 
     @Before
@@ -39,46 +46,106 @@ public class ApplicationTests {
 
     @Test
     public void testQuery() throws Exception {
+        Map params =new HashMap<String, String>();
 
-        String jsonStr = "{\n" +
-                "    \"username\": \"admin\",\n" +
-                "    \"values\": {},\n" +
-                "    \"queryname\": \"selectall\",\n" +
-                "    \"action\": \"query\",\n" +
-                "    \"password\": \"password\"\n" +
-                "}";
+        params.put("username", "admin");
+        params.put("password", "password");
+        params.put("action", "query");
+        params.put("queryname", "selectall");
 
-        MvcResult result = this.mvc.perform(post("/rest/query")
+
+        String jsonStr = convertService.mapToJsonString(params);
+
+        MvcResult mvcResult = this.mvc.perform(post("/rest/api")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("params", jsonStr))
                 .andExpect(status().isOk()).andReturn();
 
-        String stringResult = result.getResponse().getContentAsString();
+        Map result = convertService.stringToMap(mvcResult.getResponse().getContentAsString());
 
-        assert stringResult.contains("{\"data\":[{\"CODE\":\"A001\",\"NAME\":\"A001\",\"NOTE\":null}");
+        assert result.get("success").equals(true);
     }
     @Test
     public void testQueryFail() throws Exception {
+        Map params =new HashMap<String, String>();
 
-        String jsonStr = "{\n" +
-                "    \"username\": \"admin\",\n" +
-                "    \"values\": {},\n" +
-                "    \"queryname\": \"selecterror\",\n" +
-                "    \"action\": \"query\",\n" +
-                "    \"password\": \"password\"\n" +
-                "}";
+        params.put("username", "admin");
+        params.put("password", "password");
+        params.put("action", "query");
+        params.put("queryname", "selecterror");
 
-        MvcResult result = this.mvc.perform(post("/rest/query")
+
+        String jsonStr = convertService.mapToJsonString(params);
+
+        MvcResult mvcResult = this.mvc.perform(post("/rest/api")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED).param("params", jsonStr))
                 .andExpect(status().isOk())
                 .andReturn();
 
-        String stringResult = result.getResponse().getContentAsString();
+        Map result = convertService.stringToMap(mvcResult.getResponse().getContentAsString());
 
-        assert stringResult.contains("bad SQL grammar [select * from table]");
+        assert result.get("success").equals(false);
+
+        assert result.get("errorMessage").toString().contains("bad SQL grammar [select * from table]");
 
 
 
+    }
+    @Test
+    public void testUpdate() throws Exception {
+
+        Map values = new HashMap();
+        values.put("Code","A001");
+        values.put("Name","A001_update");
+        values.put("Note","update_note");
+
+
+        Map params =new HashMap<String, String>();
+
+        params.put("username", "admin");
+        params.put("password", "password");
+        params.put("action", "update");
+        params.put("updatename", "updateone");
+        params.put("values", values);
+
+
+        String jsonStr = convertService.mapToJsonString(params);
+
+        MvcResult mvcResult = this.mvc.perform(post("/rest/api")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED).param("params", jsonStr))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        Map result = convertService.stringToMap(mvcResult.getResponse().getContentAsString());
+
+        assert result.get("success").equals(true);
+    }
+
+    @Test
+    public void testUpdateFail() throws Exception {
+
+
+
+
+        Map params =new HashMap<String, String>();
+
+        params.put("username", "admin");
+        params.put("password", "password");
+        params.put("action", "update");
+        params.put("updatename", "updateone");
+
+
+        String jsonStr = convertService.mapToJsonString(params);
+
+        MvcResult mvcResult = this.mvc.perform(post("/rest/api")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED).param("params", jsonStr))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        Map result = convertService.stringToMap(mvcResult.getResponse().getContentAsString());
+
+        assert result.get("success").equals(false);
+        assert !result.get("errorMessage").equals("");
     }
 
 

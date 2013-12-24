@@ -16,13 +16,16 @@ public class RestController {
     @Autowired
     private ApiFecadeService apiFecadeService;
 
-    @RequestMapping(value ="/rest/query" , method = RequestMethod.POST
+    @RequestMapping(value ="/rest/api" , method = RequestMethod.POST
             , headers = "Content-Type=application/x-www-form-urlencoded"
             , produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String query(@RequestParam(value="params", required=true)String params) {
+    public String api(@RequestParam(value="params", required=true)String params) {
 
         return apiFecadeService.excute(apiFecadeService, params);
 
     }
+
+
+
 }

@@ -49,20 +49,4 @@ public class ApiAspect {
 
     }
 
-//    @Before("execution(* goinfo.service.ApiFecadeService.excute(..))")
-//    public void logInput(JoinPoint joinPoint) {
-//        Log logger = LogFactory.getLog(joinPoint.getTarget().getClass());
-//
-//        logger.info("\n    input: " + joinPoint.getArgs()[0]);
-//
-//    }
-//
-//    @AfterReturning(pointcut = "execution(* goinfo.service.ApiFecadeService.excute(..))", returning = "result")
-//    public void logOutput(JoinPoint joinPoint, Object result) {
-//        Log logger = LogFactory.getLog(joinPoint.getTarget().getClass());
-//
-//        logger.info("\n    result: " + result.toString());
-//
-//    }
-
 }
