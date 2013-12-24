@@ -20,14 +20,17 @@ public class ExcuteService {
 
     public String excute(String params){
         Map paramsMap = convertService.stringToMap(params);
+        Map result =excute(paramsMap);
+        return convertService.mapToJsonString(result);
+    }
 
-        String action = paramsMap.get("action").toString();
+
+    public Map excute(Map params){
+        String action = params.get("action").toString();
         Map result =null;
         if(action.equals("query")){
-            result = queryService.excute(paramsMap);
+            result = queryService.excute(params);
         }
-
-        return convertService.mapToJsonString(result);
-
+        return result;
     }
 }
