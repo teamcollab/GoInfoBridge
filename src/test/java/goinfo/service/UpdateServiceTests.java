@@ -54,7 +54,7 @@ public class UpdateServiceTests {
         params.put("action", "update");
         params.put("password", "password");
 
-        params.put("updatename", "updateone");
+        params.put("queryname", "updateone");
         params.put("values", values);
 
 

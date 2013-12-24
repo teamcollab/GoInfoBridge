@@ -105,7 +105,7 @@ public class ApplicationTests {
         params.put("username", "admin");
         params.put("password", "password");
         params.put("action", "update");
-        params.put("updatename", "updateone");
+        params.put("queryname", "updateone");
         params.put("values", values);
 
 
@@ -132,7 +132,7 @@ public class ApplicationTests {
         params.put("username", "admin");
         params.put("password", "password");
         params.put("action", "update");
-        params.put("updatename", "updateone");
+        params.put("queryname", "updateone");
 
 
         String jsonStr = convertService.mapToJsonString(params);

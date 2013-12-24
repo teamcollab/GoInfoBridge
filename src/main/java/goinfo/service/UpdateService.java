@@ -23,11 +23,11 @@ public class UpdateService {
     public Map excute(Map params) {
 
 
-        Assert.notNull(params.get("updatename"), "updatename must not be null");
+        Assert.notNull(params.get("queryname"), "queryname must not be null");
 
 
-        String updatename = params.get("updatename").toString();
-        String querysql = PropertiesHoldService.getQueriesProperties().getProperty(updatename);
+        String queryname = params.get("queryname").toString();
+        String querysql = PropertiesHoldService.getQueriesProperties().getProperty(queryname);
 
         Map result = new HashMap();
         result.put("success", true);

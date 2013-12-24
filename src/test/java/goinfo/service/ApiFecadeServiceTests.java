@@ -72,7 +72,7 @@ public class ApiFecadeServiceTests {
         params.put("username", "admin");
         params.put("password", "password");
         params.put("action", "update");
-        params.put("updatename", "updateerror");
+        params.put("queryname", "updateerror");
 
         params.put("values", values);
 
