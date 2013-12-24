@@ -26,7 +26,7 @@ public class SingletonsServiceTests {
     @Test
     public void testDynamicPropertiesLoad() throws Exception {
 
-        System.out.println(SingletonsService.getQueriesProperties().getProperty("selectall"));
+        System.out.println(PropertiesHoldService.getQueriesProperties().getProperty("selectall"));
 
         String output = this.outputCapture.toString();
 

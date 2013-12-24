@@ -27,7 +27,7 @@ public class UpdateService {
 
 
         String updatename = params.get("updatename").toString();
-        String querysql = SingletonsService.getQueriesProperties().getProperty(updatename);
+        String querysql = PropertiesHoldService.getQueriesProperties().getProperty(updatename);
 
         Map result = new HashMap();
         result.put("success", true);

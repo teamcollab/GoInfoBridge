@@ -14,10 +14,23 @@ public class ApiFecadeService {
 
 
     @Autowired
-    QueryService queryService;
+    private QueryService queryService;
 
     @Autowired
-    UpdateService updateService;
+    private UpdateService updateService;
+
+    @Autowired
+    private ConvertService convertService;
+
+    public String excute(ApiFecadeService _this,String params){
+        // pass _this because _this has process AOP
+
+        Map paramsMap = convertService.stringToMap(params);
+        Map result =_this.excute(paramsMap);
+        String jsonString =convertService.mapToJsonString(result);
+        return jsonString;
+    }
+
 
     public Map excute(Map params){
 

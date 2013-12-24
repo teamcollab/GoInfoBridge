@@ -1,8 +1,10 @@
-package goinfo.filter;
+package goinfo.cfg;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
@@ -12,14 +14,14 @@ import java.util.Map;
 
 @Aspect
 @Component
-public class ApiFilter {
+public class ApiAspect {
 
 
     @Around("execution(java.util.Map goinfo.service.ApiFecadeService.excute(..))")
     public Map logAndHandleException(ProceedingJoinPoint joinPoint) {
         Log logger = LogFactory.getLog(joinPoint.getTarget().getClass());
 
-        logger.info("\n    input: " + joinPoint.getArgs()[0]);
+        logger.info("\n     input: " + joinPoint.getArgs()[0]);
 
         Object result = null;
         try {
@@ -38,6 +40,13 @@ public class ApiFilter {
         logger.info("\n    result: " + result);
 
         return (Map) result;
+    }
+
+    @AfterReturning(pointcut = "execution(* goinfo.service.PropertiesHoldService.getQueriesProperty(..))", returning = "result")
+    public void logExcuteSql(JoinPoint joinPoint, Object result) {
+        Log logger = LogFactory.getLog(joinPoint.getTarget().getClass());
+        logger.info("\n       sql: " + result.toString());
+
     }
 
 //    @Before("execution(* goinfo.service.ApiFecadeService.excute(..))")

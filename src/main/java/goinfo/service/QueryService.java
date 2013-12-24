@@ -16,13 +16,14 @@ public class QueryService {
 
     @Autowired private JdbcTemplate jdbcTemplate;
     @Autowired private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    @Autowired private PropertiesHoldService propertiesHoldService;
 
 
     public Map excute(Map params) {
 
         Assert.notNull(params.get("queryname"), "queryname must not be null");
         String queryname = params.get("queryname").toString();
-        String querysql = SingletonsService.getQueriesProperties().getProperty(queryname);
+        String querysql = propertiesHoldService.getQueriesProperty(queryname);
 
         Map result = new HashMap();
         result.put("success", true);

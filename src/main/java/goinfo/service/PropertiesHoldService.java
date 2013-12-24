@@ -12,15 +12,15 @@ import java.util.Properties;
 
 @Service()
 @Scope(value = "singleton")
-public class SingletonsService {
+public class PropertiesHoldService {
 
 
-    static private String queriesPotertiesLoacation;
+    private static String queriesPotertiesLoacation;
 
-    static private Properties queriesProperties;
+    private static Properties queriesProperties;
 
     @Autowired
-    private SingletonsService(@Value("${properties.queries.location}") String queriesPotertiesLoacation) {
+    protected PropertiesHoldService(@Value("${properties.queries.location}") String queriesPotertiesLoacation) {
         this.queriesPotertiesLoacation = queriesPotertiesLoacation;
         queriesProperties = new Properties();
     }
@@ -34,5 +34,8 @@ public class SingletonsService {
         return queriesProperties;
     }
 
+    public String getQueriesProperty(String propertyName){
 
+        return getQueriesProperties().getProperty(propertyName);
+    }
 }
