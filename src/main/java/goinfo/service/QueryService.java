@@ -5,13 +5,14 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class QueryApiService {
+public class QueryService {
 
     @Autowired private JdbcTemplate jdbcTemplate;
     @Autowired private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -22,6 +23,9 @@ public class QueryApiService {
 
         result.put("success", true);
 
+
+        Assert.notNull(params.get("queryname"), "queryname must not be null");
+
         String queryname = params.get("queryname").toString();
 
         String querysql = SingletonsService.getQueriesProperties().getProperty(queryname);
@@ -31,7 +35,6 @@ public class QueryApiService {
             values = (Map) params.get("values");
 
         List data = null;
-
 
         try {
             if(values.size()>0)

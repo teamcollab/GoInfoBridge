@@ -42,7 +42,7 @@ public class ApplicationTests {
     public void testRepairItemList() throws Exception {
 
         this.mvc.perform(get("/repairItem/list")).andExpect(status().isOk())
-                .andExpect(content().string("[{\"code\":\"A001\",\"name\":\"A001\",\"note\":null}]"));
+                .andExpect(content().string("[{\"code\":\"A001\",\"name\":\"A001\",\"note\":null},{\"code\":\"A002\",\"name\":\"A002\",\"note\":null}]"));
     }
 
     @Test
@@ -57,7 +57,7 @@ public class ApplicationTests {
                 "}";
 
         this.mvc.perform(post("/rest/query").contentType(MediaType.APPLICATION_FORM_URLENCODED).param("params", jsonStr)).andExpect(status().isOk())
-                .andExpect(content().string("{\"data\":[{\"CODE\":\"A001\",\"NAME\":\"A001\",\"NOTE\":null}],\"success\":true}"));
+                .andExpect(content().string("{\"data\":[{\"CODE\":\"A001\",\"NAME\":\"A001\",\"NOTE\":null},{\"CODE\":\"A002\",\"NAME\":\"A002\",\"NOTE\":null}],\"success\":true}"));
     }
     @Test
     public void testQueryFail() throws Exception {

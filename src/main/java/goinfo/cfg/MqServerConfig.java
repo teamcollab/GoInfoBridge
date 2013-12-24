@@ -1,6 +1,6 @@
 package goinfo.cfg;
 
-import goinfo.service.AmqpService;
+import goinfo.web.AmqpController;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
@@ -41,13 +41,13 @@ public class MqServerConfig {
     }
 
     @Bean
-    AmqpService receiver() {
-        return new AmqpService();
+    AmqpController receiver() {
+        return new AmqpController();
     }
 
     @Bean
-    MessageListenerAdapter listenerAdapter(AmqpService amqpService) {
-        return new MessageListenerAdapter(amqpService, "receiveMessage");
+    MessageListenerAdapter listenerAdapter(AmqpController amqpController) {
+        return new MessageListenerAdapter(amqpController, "receiveMessage");
     }
 
 }

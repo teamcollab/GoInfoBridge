@@ -10,67 +10,45 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @ActiveProfiles("test")
-public class QueryApiServiceTests {
-    @Autowired
-    QueryService queryService;
+public class ExcuteApiServiceTests {
 
+    @Autowired
+    ApiFecadeService apiFecadeService;
 
     @Test
-    public void testSelectone(){
-
+    public void testActionParamsException(){
         Map params =new HashMap<String, String>();
 
         params.put("username", "admin");
         params.put("password", "password");
-        params.put("action", "query");
         params.put("queryname", "selectall");
 
-        Map result = queryService.excute(params);
+        Map result = apiFecadeService.excute(params);
 
-        System.out.println("test result = "+ result.get("success"));
-
-        assert result.get("success").equals(true);
-
-        List data = (List)result.get("data");
-
-        assert data.size() > 1;
-
-
+        assert result.get("success").equals(false);
+        assert !result.get("errorMessage").equals("");
     }
     @Test
-    public void testSelectsome(){
-
-        Map values = new HashMap();
-        values.put("Code","A001");
-
+    public void testQuerynameParamsException(){
         Map params =new HashMap<String, String>();
 
-        params.put("values", values);
         params.put("username", "admin");
         params.put("password", "password");
         params.put("action", "query");
-        params.put("queryname", "selectsome");
 
-        Map result = queryService.excute(params);
+        Map result = apiFecadeService.excute(params);
 
-        assert result.get("success").equals(true);
-
-        List data = (List)result.get("data");
-
-        assert data.size() == 1;
-
-
+        assert result.get("success").equals(false);
+        assert !result.get("errorMessage").equals("");
     }
     @Test
-    public void testQueryFail(){
-
+    public void testSelectErrorException(){
         Map params =new HashMap<String, String>();
 
         params.put("username", "admin");
@@ -78,20 +56,10 @@ public class QueryApiServiceTests {
         params.put("action", "query");
         params.put("queryname", "selecterror");
 
-        boolean result = true ;
+        Map result = apiFecadeService.excute(params);
 
-        try{
-            queryService.excute(params);
-        }catch(Exception e){
-            result = false;
-
-        }
-
-        assert !result;
-
-
-
+        assert result.get("success").equals(false);
+        assert !result.get("errorMessage").equals("");
     }
-
 
 }
