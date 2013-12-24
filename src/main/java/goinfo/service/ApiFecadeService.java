@@ -12,19 +12,12 @@ import java.util.Map;
 @Service
 public class ApiFecadeService {
 
-    @Autowired
-    ConvertService convertService;
 
     @Autowired
     QueryService queryService;
 
-
-    public String excute(String params){
-        Map paramsMap = convertService.stringToMap(params);
-        Map result =this.excute(paramsMap);
-        return convertService.mapToJsonString(result);
-    }
-
+    @Autowired
+    UpdateService updateService;
 
     public Map excute(Map params){
 
@@ -34,6 +27,8 @@ public class ApiFecadeService {
         Map result =null;
         if(action.equals("query")){
             result = queryService.excute(params);
+        }else if(action.equals("update")){
+            result = updateService.excute(params);
         }
         return result;
     }

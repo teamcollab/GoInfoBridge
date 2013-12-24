@@ -7,16 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
-@WebAppConfiguration
 @ActiveProfiles("test")
-public class ExcuteApiServiceTests {
+public class ApiFecadeServiceTests {
 
     @Autowired
     ApiFecadeService apiFecadeService;
@@ -59,7 +57,29 @@ public class ExcuteApiServiceTests {
         Map result = apiFecadeService.excute(params);
 
         assert result.get("success").equals(false);
-        assert !result.get("errorMessage").equals("");
+        assert result.get("errorMessage").toString().startsWith("StatementCallback; bad SQL grammar [select * from table]");
     }
+    @Test
+    public void testUpdateErrorException(){
+        Map values = new HashMap();
+        values.put("Code","A001");
+        values.put("Name","A001_update");
+        values.put("Note","update_note");
 
+
+        Map params =new HashMap<String, String>();
+
+        params.put("username", "admin");
+        params.put("password", "password");
+        params.put("action", "update");
+        params.put("updatename", "updateerror");
+
+        params.put("values", values);
+
+        Map result = apiFecadeService.excute(params);
+
+        assert result.get("success").equals(false);
+
+        assert result.get("errorMessage").toString().startsWith("No value supplied for the SQL parameter 'error'");
+    }
 }

@@ -8,21 +8,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
-public class QueryService {
+public class UpdateService {
+
+    @Autowired
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired private JdbcTemplate jdbcTemplate;
-    @Autowired private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
 
 
     public Map excute(Map params) {
 
-        Assert.notNull(params.get("queryname"), "queryname must not be null");
-        String queryname = params.get("queryname").toString();
-        String querysql = SingletonsService.getQueriesProperties().getProperty(queryname);
+
+        Assert.notNull(params.get("updatename"), "updatename must not be null");
+
+
+        String updatename = params.get("updatename").toString();
+        String querysql = SingletonsService.getQueriesProperties().getProperty(updatename);
 
         Map result = new HashMap();
         result.put("success", true);
@@ -31,21 +36,20 @@ public class QueryService {
         if(params.containsKey("values"))
             values = (Map) params.get("values");
 
-        List data = null;
+        int sqlExcuteResult = 0;
+
+        System.out.println("values = "+values);
 
         try {
             if(values.size()>0)
-                data = namedParameterJdbcTemplate.queryForList(querysql,values);
-            else data = jdbcTemplate.queryForList(querysql);
+                sqlExcuteResult = namedParameterJdbcTemplate.update(querysql, values);
+            else sqlExcuteResult = jdbcTemplate.update(querysql);
         }catch (DataAccessException e ){
             throw e;
         }
 
-        result.put("data",data);
+        result.put("message","update "+sqlExcuteResult+" rows data");
 
-
-        return result;
-    }
-
-
+    return result;
+}
 }
