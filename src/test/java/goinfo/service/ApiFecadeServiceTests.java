@@ -20,7 +20,22 @@ public class ApiFecadeServiceTests {
     ApiFecadeService apiFecadeService;
 
     @Test
-    public void testActionParamsException(){
+    public void testNoConnectNameException(){
+        Map params =new HashMap<String, String>();
+
+        params.put("username", "admin");
+        params.put("password", "password");
+        params.put("queryname", "selectall");
+        params.put("action", "query");
+
+        Map result = apiFecadeService.excute(params);
+
+        assert result.get("success").equals(false);
+        assert !result.get("errorMessage").equals("");
+    }
+
+    @Test
+    public void testNoSetActionException(){
         Map params =new HashMap<String, String>();
 
         params.put("username", "admin");
@@ -33,7 +48,7 @@ public class ApiFecadeServiceTests {
         assert !result.get("errorMessage").equals("");
     }
     @Test
-    public void testQuerynameParamsException(){
+    public void testNoSetQuerynameException(){
         Map params =new HashMap<String, String>();
 
         params.put("username", "admin");

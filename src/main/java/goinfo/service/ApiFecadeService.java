@@ -36,6 +36,7 @@ public class ApiFecadeService {
 
         Assert.notNull(params.get("action"), "action must not be null");
         Assert.notNull(params.get("queryname"), "queryname must not be null");
+        Assert.notNull(params.get("connectname"), "connectname must not be null");
 
         String action = params.get("action").toString();
         Map result =null;

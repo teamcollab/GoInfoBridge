@@ -1,11 +1,9 @@
 package goinfo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,8 +12,9 @@ import java.util.Map;
 @Service
 public class QueryService {
 
-    @Autowired private JdbcTemplate jdbcTemplate;
-    @Autowired private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    @Autowired
+    @Qualifier("propertyDataSourceSwichService")
+    private DataSourceSwichService dataSourceSwichService;
     @Autowired private PropertiesHoldService propertiesHoldService;
 
 
@@ -23,6 +22,7 @@ public class QueryService {
 
 
         String queryname = params.get("queryname").toString();
+        String connectname = params.get("connectname").toString();
         String querysql = propertiesHoldService.getQueriesProperty(queryname);
 
         Map result = new HashMap();
@@ -35,9 +35,11 @@ public class QueryService {
         List data = null;
 
         try {
-            if(values.size()>0)
-                data = namedParameterJdbcTemplate.queryForList(querysql,values);
-            else data = jdbcTemplate.queryForList(querysql);
+            if(values.size()>0){
+                data = dataSourceSwichService.getNamedParameterJdbcTemplate(connectname).queryForList(querysql, values);
+            }else{
+                data = dataSourceSwichService.getJdbcTemplete(connectname).queryForList(querysql);
+            }
         }catch (DataAccessException e ){
             throw e;
         }

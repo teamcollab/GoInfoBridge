@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,9 +17,22 @@ import java.util.Map;
 @Component
 public class ApiAspect {
 
+    @Around("execution(* goinfo.service.DataSourceSwichService.*(..))")
+    public void dataSourceSwichHandleException(ProceedingJoinPoint joinPoint) {
+
+        Object result = null;
+        try {
+            result = joinPoint.proceed();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+
+        Assert.notNull(result, "查無 " + joinPoint.getArgs()[0] + " 連線資訊");
+
+    }
 
     @Around("execution(java.util.Map goinfo.service.ApiFecadeService.excute(..))")
-    public Map logAndHandleException(ProceedingJoinPoint joinPoint) {
+    public Map serviceHandleException(ProceedingJoinPoint joinPoint) {
         Log logger = LogFactory.getLog(joinPoint.getTarget().getClass());
 
         logger.info("\n     input: " + joinPoint.getArgs()[0]);

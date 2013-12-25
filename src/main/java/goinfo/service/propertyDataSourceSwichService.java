@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 /**
  * TODO: 之後換成讀取資料庫裡的連線資訊，並且在啟動伺服器時建立 dataSource
@@ -22,11 +23,16 @@ public class propertyDataSourceSwichService implements DataSourceSwichService {
     NamedParameterJdbcTemplate minorNamedParameterJdbcTemplate;
 
     public JdbcTemplate getJdbcTemplete(String name){
+        JdbcTemplate jdbcTemplate=null;
+
         if(name.equals("major"))
-            return majorJdbcTemplate;
+            jdbcTemplate = majorJdbcTemplate;
         else if(name.equals("minor"))
-            return minorJdbcTemplate;
-        else return null;
+            jdbcTemplate = minorJdbcTemplate;
+
+        Assert.notNull(jdbcTemplate, "查無 "+name+" 連線資訊");
+
+        return jdbcTemplate;
 
     }
 

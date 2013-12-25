@@ -55,6 +55,7 @@ public class QueryApiServiceTests {
         params.put("password", "password");
         params.put("action", "query");
         params.put("queryname", "selectsome");
+        params.put("connectname", "major");
 
         Map result = queryService.excute(params);
 
@@ -75,6 +76,8 @@ public class QueryApiServiceTests {
         params.put("password", "password");
         params.put("action", "query");
         params.put("queryname", "selecterror");
+        params.put("connectname", "major");
+
 
         boolean result = true ;
 
@@ -82,7 +85,8 @@ public class QueryApiServiceTests {
             queryService.excute(params);
         }catch(Exception e){
             result = false;
-
+            e.printStackTrace();
+            System.out.println("exception message = "+e.getLocalizedMessage());
         }
 
         assert !result;
@@ -90,6 +94,5 @@ public class QueryApiServiceTests {
 
 
     }
-
 
 }

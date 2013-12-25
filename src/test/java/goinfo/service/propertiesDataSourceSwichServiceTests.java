@@ -24,4 +24,23 @@ public class propertiesDataSourceSwichServiceTests {
 //        assert propertyDataSourceSwichService.getJdbcTemplete("") != null;
 
     }
+    @Test
+    public void testGetDatasourceNotfind(){
+
+        String errorMessage="";
+
+        boolean result = true;
+        try{
+            propertyDataSourceSwichService.getJdbcTemplete("noset");
+        }catch(Exception e){
+            result = false;
+            e.printStackTrace();
+            errorMessage = e.getLocalizedMessage();
+        }
+
+        assert !result;
+
+        assert errorMessage.equals("查無 noset 連線資訊");
+
+    }
 }
