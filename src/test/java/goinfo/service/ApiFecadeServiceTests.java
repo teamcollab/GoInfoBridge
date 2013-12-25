@@ -20,7 +20,7 @@ public class ApiFecadeServiceTests {
     ApiFecadeService apiFecadeService;
 
     @Test
-    public void testNoConnectNameException(){
+    public void testNoConnectNameUseMajorConnectionRunOk(){
         Map params =new HashMap<String, String>();
 
         params.put("username", "admin");
@@ -30,8 +30,8 @@ public class ApiFecadeServiceTests {
 
         Map result = apiFecadeService.excute(params);
 
-        assert result.get("success").equals(false);
-        assert !result.get("errorMessage").equals("");
+        assert result.get("success").equals(true);
+        assert result.get("data") != null;
     }
 
     @Test

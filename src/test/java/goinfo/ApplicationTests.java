@@ -28,7 +28,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @ActiveProfiles("test")
-// Separate profile for web tests to avoid clashing databases
 public class ApplicationTests {
 
     @Autowired

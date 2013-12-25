@@ -20,6 +20,12 @@ public class ApiAspect {
     @Around("execution(* goinfo.service.DataSourceSwichService.*(..))")
     public Object dataSourceSwichHandleException(ProceedingJoinPoint joinPoint) {
 
+        Log logger = LogFactory.getLog(joinPoint.getTarget().getClass());
+
+        if(joinPoint.getArgs()[0].equals(""))
+            logger.info("\nconnectname not set, use major connection ");
+        else logger.info("\nconnectname: " + joinPoint.getArgs()[0]);
+
         Object result = null;
         try {
             result = joinPoint.proceed();

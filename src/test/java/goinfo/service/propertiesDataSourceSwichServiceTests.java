@@ -20,8 +20,10 @@ public class propertiesDataSourceSwichServiceTests {
 
         assert propertyDataSourceSwichService.getJdbcTemplete("major") != null;
         assert propertyDataSourceSwichService.getJdbcTemplete("minor") != null;
-//        assert propertyDataSourceSwichService.getJdbcTemplete("default") != null;
-//        assert propertyDataSourceSwichService.getJdbcTemplete("") != null;
+        assert propertyDataSourceSwichService.getJdbcTemplete("") != null;
+        assert propertyDataSourceSwichService.getNamedParameterJdbcTemplate("major") != null;
+        assert propertyDataSourceSwichService.getNamedParameterJdbcTemplate("minor") != null;
+        assert propertyDataSourceSwichService.getNamedParameterJdbcTemplate("") != null;
 
     }
     @Test
@@ -43,4 +45,5 @@ public class propertiesDataSourceSwichServiceTests {
         assert errorMessage.equals("查無 noset 連線資訊");
 
     }
+
 }

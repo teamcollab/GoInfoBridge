@@ -56,7 +56,6 @@ public class QueryApiServiceTests {
         params.put("action", "query");
         params.put("queryname", "selectsome");
         params.put("connectname", "major");
-        params.put("connectname", "major");
         Map result = queryService.excute(params);
 
         assert result.get("success").equals(true);
