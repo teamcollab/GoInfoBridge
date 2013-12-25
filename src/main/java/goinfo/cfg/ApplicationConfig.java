@@ -1,7 +1,6 @@
 package goinfo.cfg;
 
 import org.springframework.boot.autoconfigure.jdbc.TomcatDataSourceConfiguration;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,7 +9,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import javax.sql.DataSource;
 
 @Configuration
-@ConfigurationProperties(name = "spring.default")
 public class ApplicationConfig extends TomcatDataSourceConfiguration {
 
     @Bean
