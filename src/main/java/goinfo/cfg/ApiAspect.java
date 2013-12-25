@@ -18,7 +18,7 @@ import java.util.Map;
 public class ApiAspect {
 
     @Around("execution(* goinfo.service.DataSourceSwichService.*(..))")
-    public void dataSourceSwichHandleException(ProceedingJoinPoint joinPoint) {
+    public Object dataSourceSwichHandleException(ProceedingJoinPoint joinPoint) {
 
         Object result = null;
         try {
@@ -28,6 +28,8 @@ public class ApiAspect {
         }
 
         Assert.notNull(result, "查無 " + joinPoint.getArgs()[0] + " 連線資訊");
+
+        return result;
 
     }
 

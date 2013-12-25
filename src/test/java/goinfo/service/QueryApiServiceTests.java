@@ -29,7 +29,7 @@ public class QueryApiServiceTests {
         params.put("password", "password");
         params.put("action", "query");
         params.put("queryname", "selectall");
-
+        params.put("connectname", "major");
         Map result = queryService.excute(params);
 
         System.out.println("test result = "+ result.get("success"));
@@ -56,7 +56,7 @@ public class QueryApiServiceTests {
         params.put("action", "query");
         params.put("queryname", "selectsome");
         params.put("connectname", "major");
-
+        params.put("connectname", "major");
         Map result = queryService.excute(params);
 
         assert result.get("success").equals(true);

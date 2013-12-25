@@ -52,6 +52,7 @@ public class ApplicationTests {
         params.put("password", "password");
         params.put("action", "query");
         params.put("queryname", "selectall");
+        params.put("connectname", "major");
 
 
         String jsonStr = convertService.mapToJsonString(params);
@@ -73,7 +74,7 @@ public class ApplicationTests {
         params.put("password", "password");
         params.put("action", "query");
         params.put("queryname", "selecterror");
-
+        params.put("connectname", "major");
 
         String jsonStr = convertService.mapToJsonString(params);
 
@@ -107,7 +108,7 @@ public class ApplicationTests {
         params.put("action", "update");
         params.put("queryname", "updateone");
         params.put("values", values);
-
+        params.put("connectname", "major");
 
         String jsonStr = convertService.mapToJsonString(params);
 
@@ -163,7 +164,7 @@ public class ApplicationTests {
         params.put("action", "delete");
         params.put("queryname", "deleteone");
         params.put("values", values);
-
+        params.put("connectname", "major");
 
         String jsonStr = convertService.mapToJsonString(params);
 
@@ -193,7 +194,7 @@ public class ApplicationTests {
         params.put("action", "create");
         params.put("queryname", "createone");
         params.put("values", values);
-
+        params.put("connectname", "major");
 
         String jsonStr = convertService.mapToJsonString(params);
 

@@ -68,7 +68,7 @@ public class ApiFecadeServiceTests {
         params.put("password", "password");
         params.put("action", "query");
         params.put("queryname", "selecterror");
-
+        params.put("connectname", "major");
         Map result = apiFecadeService.excute(params);
 
         assert result.get("success").equals(false);
@@ -88,7 +88,7 @@ public class ApiFecadeServiceTests {
         params.put("password", "password");
         params.put("action", "update");
         params.put("queryname", "updateerror");
-
+        params.put("connectname", "major");
         params.put("values", values);
 
         Map result = apiFecadeService.excute(params);
