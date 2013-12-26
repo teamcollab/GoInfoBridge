@@ -97,4 +97,21 @@ public class ApiFecadeServiceTests {
 
         assert result.get("errorMessage").toString().startsWith("No value supplied for the SQL parameter 'error'");
     }
+
+    @Test
+    public void testActionNameNotSupportException(){
+
+        Map params =new HashMap<String, String>();
+        params.put("username", "admin");
+        params.put("password", "password");
+        params.put("action", "testaction");
+        params.put("queryname", "updateone");
+        params.put("connectname", "major");
+
+        Map result = apiFecadeService.excute(params);
+
+        assert result.get("success").equals(false);
+
+        assert result.get("errorMessage").toString().startsWith("testaction not support");
+    }
 }

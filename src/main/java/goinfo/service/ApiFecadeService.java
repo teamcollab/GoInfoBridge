@@ -43,9 +43,9 @@ public class ApiFecadeService {
         Map result =null;
         if(action.equals("query")){
             result = queryService.excute(params);
-        }else if(action.equals("update") || action.equals("delete") || action.equals("create")){
+        }else if(action.equals("update")){ // || action.equals("delete") || action.equals("create")
             result = updateService.excute(params);
-        }
+        }else Assert.state(false, action + " not support");
         return result;
     }
 }
