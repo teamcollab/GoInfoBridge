@@ -1,8 +1,6 @@
 package goinfo.service;
 
 import goinfo.Application;
-import goinfo.TestDataBaseCreater;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +18,6 @@ public class UpdateServiceTests {
 
     @Autowired
     UpdateService updateService;
-
-    @BeforeClass
-    public static void createDatabase(){
-        TestDataBaseCreater.createDatabase();
-    }
 
     @Test
     public void testUpdatenameException(){
@@ -48,10 +41,8 @@ public class UpdateServiceTests {
             updateService.excute(params);
         }catch(Exception e){
             result = false;
-            message = e.getMessage();
         }
         assert !result;
-        assert !message.equals("");
 
     }
 

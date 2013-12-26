@@ -39,10 +39,6 @@ public class ApplicationTests {
 
     private MockMvc mvc;
 
-    @BeforeClass
-    public static void createDatabase(){
-        TestDataBaseCreater.createDatabase();
-    }
 
     @Before
     public void setUp() {

@@ -1,8 +1,6 @@
 package goinfo.service;
 
 import goinfo.Application;
-import goinfo.TestDataBaseCreater;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +19,6 @@ public class QueryApiServiceTests {
     @Autowired
     QueryService queryService;
 
-    @BeforeClass
-    public static void createDatabase(){
-        TestDataBaseCreater.createDatabase();
-    }
 
     @Test
     public void testSelectone(){

@@ -1,13 +1,14 @@
 package goinfo.service;
 
 import goinfo.Application;
-import goinfo.TestDataBaseCreater;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -17,7 +18,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
-@ActiveProfiles("test")
+@ActiveProfiles("testMutiDB")
 public class PropertiesDataSourceSwichServiceTests {
     @Autowired
     DataSourceSwichService propertyDataSourceSwichService;
@@ -27,7 +28,17 @@ public class PropertiesDataSourceSwichServiceTests {
 
     @BeforeClass
     public static void createDatabase(){
-        TestDataBaseCreater.createDatabase();
+        EmbeddedDatabaseBuilder builderMajor = new EmbeddedDatabaseBuilder();
+        builderMajor = builderMajor.setType(EmbeddedDatabaseType.HSQL).addScript(
+                "majorSchema.sql");
+        builderMajor.setName("majorDb");
+        builderMajor.build();
+
+        EmbeddedDatabaseBuilder builderMinor = new EmbeddedDatabaseBuilder();
+        builderMinor = builderMinor.setType(EmbeddedDatabaseType.HSQL).addScript(
+                "minorSchema.sql");
+        builderMinor.setName("minorDb");
+        builderMinor.build();
     }
 
     @Test
