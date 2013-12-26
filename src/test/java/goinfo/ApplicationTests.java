@@ -3,6 +3,7 @@ package goinfo;
 
 import goinfo.service.ConvertService;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,11 @@ public class ApplicationTests {
     private ConvertService convertService;
 
     private MockMvc mvc;
+
+    @BeforeClass
+    public static void createDatabase(){
+        TestDataBaseCreater.createDatabase();
+    }
 
     @Before
     public void setUp() {
