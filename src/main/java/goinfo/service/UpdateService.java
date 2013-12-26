@@ -1,9 +1,8 @@
 package goinfo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -13,9 +12,9 @@ import java.util.Map;
 public class UpdateService {
 
     @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-    @Autowired private JdbcTemplate jdbcTemplate;
+    @Qualifier("propertyDataSourceSwichService")
+    private DataSourceSwichService dataSourceSwichService;
+    @Autowired private PropertiesHoldService propertiesHoldService;
 
 
 
@@ -23,7 +22,8 @@ public class UpdateService {
 
 
         String queryname = params.get("queryname").toString();
-        String querysql = PropertiesHoldService.getQueriesProperties().getProperty(queryname);
+        String connectname = params.get("connectname").toString();
+        String querysql = propertiesHoldService.getQueriesProperty(queryname);
 
         Map result = new HashMap();
         result.put("success", true);
@@ -34,12 +34,10 @@ public class UpdateService {
 
         int sqlExcuteResult = 0;
 
-        System.out.println("values = "+values);
-
         try {
             if(values.size()>0)
-                sqlExcuteResult = namedParameterJdbcTemplate.update(querysql, values);
-            else sqlExcuteResult = jdbcTemplate.update(querysql);
+                sqlExcuteResult = dataSourceSwichService.getNamedParameterJdbcTemplate(connectname).update(querysql, values);
+            else sqlExcuteResult = dataSourceSwichService.getJdbcTemplete(connectname).update(querysql);
         }catch (DataAccessException e ){
             throw e;
         }
