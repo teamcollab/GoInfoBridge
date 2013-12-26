@@ -19,7 +19,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @ActiveProfiles("testMutiDB")
-public class PropertiesDataSourceSwichServiceTests {
+public class PropDataSourceSwichServiceTests {
     @Autowired
     DataSourceSwichService propertyDataSourceSwichService;
 
