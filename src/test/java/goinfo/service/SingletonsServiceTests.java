@@ -4,6 +4,7 @@ import goinfo.Application;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.OutputCapture;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
@@ -23,10 +24,13 @@ public class SingletonsServiceTests {
     @Rule
     public OutputCapture outputCapture = new OutputCapture();
 
+    @Autowired
+    PropertiesHoldService propertiesHoldService;
+
     @Test
     public void testDynamicPropertiesLoad() throws Exception {
 
-        System.out.println(PropertiesHoldService.getQueriesProperties().getProperty("selectall"));
+        System.out.println(propertiesHoldService.getQueriesProperties().getProperty("selectall"));
 
         String output = this.outputCapture.toString();
 

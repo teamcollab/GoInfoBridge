@@ -15,17 +15,17 @@ import java.util.Properties;
 public class PropertiesHoldService {
 
 
-    private static String queriesPotertiesLoacation;
+    private String queriesPotertiesLoacation;
 
-    private static Properties queriesProperties;
+    private Properties queriesProperties;
 
     @Autowired
-    protected PropertiesHoldService(@Value("${properties.queries.location}") String queriesPotertiesLoacation) {
-        this.queriesPotertiesLoacation = queriesPotertiesLoacation;
+    protected PropertiesHoldService(@Value("${properties.queries.location}") String queriesPropertiesLocation) {
+        this.queriesPotertiesLoacation = queriesPropertiesLocation;
         queriesProperties = new Properties();
     }
 
-    public static Properties getQueriesProperties(){
+    public Properties getQueriesProperties(){
         try {
             queriesProperties.load(new FileInputStream(queriesPotertiesLoacation));
         } catch (IOException e) {
