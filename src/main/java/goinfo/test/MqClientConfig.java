@@ -22,7 +22,7 @@ public class MqClientConfig {
     public RabbitTemplate amqpTemplate() {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setReplyQueue(responseQueue());
-        rabbitTemplate.setReplyTimeout(5000);
+        rabbitTemplate.setReplyTimeout(10000);
         return rabbitTemplate;
     }
     @Bean
