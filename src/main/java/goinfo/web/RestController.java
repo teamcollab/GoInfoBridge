@@ -16,7 +16,7 @@ public class RestController {
     @Autowired
     private ApiFecadeService apiFecadeService;
 
-    @RequestMapping(value ="/rest/api" , method = RequestMethod.POST
+    @RequestMapping(value ="/rest/api" , method = {RequestMethod.POST, RequestMethod.OPTIONS}
             , headers = "Content-Type=application/x-www-form-urlencoded"
             , produces = "text/html;charset=UTF-8")
     @ResponseBody
