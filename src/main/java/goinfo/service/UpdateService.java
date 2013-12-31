@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,6 +28,8 @@ public class UpdateService {
         String queryname = params.get("queryname").toString();
         String connectname = params.get("connectname").toString();
         String querysql = propertiesHoldService.getQueriesProperty(queryname);
+
+        if(querysql == null) Assert.notNull(querysql, queryname + " query not find");
 
         Map result = new HashMap();
         result.put("success", true);

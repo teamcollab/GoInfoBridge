@@ -67,7 +67,7 @@ public class ApiAspect {
     @AfterReturning(pointcut = "execution(* goinfo.service.PropertiesHoldService.getQueriesProperty(..))", returning = "result")
     public void logExcuteSql(JoinPoint joinPoint, Object result) {
         Log logger = LogFactory.getLog(joinPoint.getTarget().getClass());
-        logger.info("\n       sql: " + result.toString());
+        logger.info("\n       sql: " + result);
 
     }
 
