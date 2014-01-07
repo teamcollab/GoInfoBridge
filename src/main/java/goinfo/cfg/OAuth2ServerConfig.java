@@ -18,15 +18,13 @@ import org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEn
 @Configuration
 @Order(1)
 public class OAuth2ServerConfig extends OAuth2ServerConfigurerAdapter {
-    @Autowired
-    OAuth2AuthenticationEntryPoint oauthAuthenticationEntryPoint;
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
         auth
                 .apply(new InMemoryClientDetailsServiceConfigurer())
                     .withClient("clientId")
-                    .authorizedGrantTypes("client_credentials")
+                    .authorizedGrantTypes("client_credentials","implicit")
                     .authorities("ROLE_CLIENT")
                     .scopes("read", "write")
                     .secret("clientSecret");
@@ -37,6 +35,7 @@ public class OAuth2ServerConfig extends OAuth2ServerConfigurerAdapter {
     public SparklrUserApprovalHandler userApprovalHandler() throws Exception {
         SparklrUserApprovalHandler handler = new SparklrUserApprovalHandler();
         handler.setTokenServices(tokenServices());
+        handler.setUseTokenServices(true);
         return handler;
     }
 
@@ -57,7 +56,7 @@ public class OAuth2ServerConfig extends OAuth2ServerConfigurerAdapter {
 
                 .and()
             .requestMatchers()
-                .antMatchers("/test/sendMsg", "/oauth/token")
+                .antMatchers("/test/sendMsg", "/oauth/token", "/oauth/authorize")
                 .and()
             .apply(new OAuth2ServerConfigurer());
     }

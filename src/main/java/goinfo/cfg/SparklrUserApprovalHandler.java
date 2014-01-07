@@ -46,6 +46,8 @@ public class SparklrUserApprovalHandler  extends TokenServicesUserApprovalHandle
     @Override
     public boolean isApproved(AuthorizationRequest authorizationRequest, Authentication userAuthentication) {
 
+        System.out.println("isApproved = run");
+
         // If we are allowed to check existing approvals this will short circuit the decision
         if (useTokenServices && super.isApproved(authorizationRequest, userAuthentication)) {
             return true;
