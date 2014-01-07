@@ -3,7 +3,6 @@ package goinfo;
 
 import goinfo.service.ConvertService;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +57,10 @@ public class ApplicationTests {
 
         String jsonStr = convertService.mapToJsonString(params);
 
-        MvcResult mvcResult = this.mvc.perform(post("/rest/api")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("params", jsonStr))
-                .andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = this.mvc.perform(
+                    post("/rest/api")
+                        .contentType(MediaType.TEXT_PLAIN).content(jsonStr)
+                ).andExpect(status().isOk()).andReturn();
 
         Map result = convertService.stringToMap(mvcResult.getResponse().getContentAsString());
 
@@ -79,10 +78,10 @@ public class ApplicationTests {
 
         String jsonStr = convertService.mapToJsonString(params);
 
-        MvcResult mvcResult = this.mvc.perform(post("/rest/api")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED).param("params", jsonStr))
-                .andExpect(status().isOk())
-                .andReturn();
+        MvcResult mvcResult = this.mvc.perform(
+                post("/rest/api")
+                        .contentType(MediaType.TEXT_PLAIN).content(jsonStr)
+        ).andExpect(status().isOk()).andReturn();
 
         Map result = convertService.stringToMap(mvcResult.getResponse().getContentAsString());
 
@@ -113,10 +112,10 @@ public class ApplicationTests {
 
         String jsonStr = convertService.mapToJsonString(params);
 
-        MvcResult mvcResult = this.mvc.perform(post("/rest/api")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED).param("params", jsonStr))
-                .andExpect(status().isOk())
-                .andReturn();
+        MvcResult mvcResult = this.mvc.perform(
+                post("/rest/api")
+                        .contentType(MediaType.TEXT_PLAIN).content(jsonStr)
+        ).andExpect(status().isOk()).andReturn();
 
         Map result = convertService.stringToMap(mvcResult.getResponse().getContentAsString());
 
@@ -141,10 +140,10 @@ public class ApplicationTests {
 
         String jsonStr = convertService.mapToJsonString(params);
 
-        MvcResult mvcResult = this.mvc.perform(post("/rest/api")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED).param("params", jsonStr))
-                .andExpect(status().isOk())
-                .andReturn();
+        MvcResult mvcResult = this.mvc.perform(
+                post("/rest/api")
+                        .contentType(MediaType.TEXT_PLAIN).content(jsonStr)
+        ).andExpect(status().isOk()).andReturn();
 
         Map result = convertService.stringToMap(mvcResult.getResponse().getContentAsString());
 
@@ -169,10 +168,10 @@ public class ApplicationTests {
 
         String jsonStr = convertService.mapToJsonString(params);
 
-        MvcResult mvcResult = this.mvc.perform(post("/rest/api")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED).param("params", jsonStr))
-                .andExpect(status().isOk())
-                .andReturn();
+        MvcResult mvcResult = this.mvc.perform(
+                post("/rest/api")
+                        .contentType(MediaType.TEXT_PLAIN).content(jsonStr)
+        ).andExpect(status().isOk()).andReturn();
 
         Map result = convertService.stringToMap(mvcResult.getResponse().getContentAsString());
 
@@ -199,10 +198,10 @@ public class ApplicationTests {
 
         String jsonStr = convertService.mapToJsonString(params);
 
-        MvcResult mvcResult = this.mvc.perform(post("/rest/api")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED).param("params", jsonStr))
-                .andExpect(status().isOk())
-                .andReturn();
+        MvcResult mvcResult = this.mvc.perform(
+                post("/rest/api")
+                        .contentType(MediaType.TEXT_PLAIN).content(jsonStr)
+        ).andExpect(status().isOk()).andReturn();
 
         Map result = convertService.stringToMap(mvcResult.getResponse().getContentAsString());
 
