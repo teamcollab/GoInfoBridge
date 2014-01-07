@@ -18,9 +18,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
-                .antMatchers("/test/sendMsg", "/rest/api").hasRole("USER")
-                .anyRequest().authenticated();
+//        http.authorizeRequests()
+//                .antMatchers("/test/sendMsg", "/rest/api").authenticated()
+//                .anyRequest().authenticated();
         http
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.NEVER)
