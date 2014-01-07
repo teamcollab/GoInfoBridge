@@ -1,4 +1,4 @@
-package goinfo.cfg;
+package goinfo.filter;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;

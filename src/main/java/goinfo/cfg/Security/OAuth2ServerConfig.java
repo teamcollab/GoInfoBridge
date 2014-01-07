@@ -1,4 +1,4 @@
-package goinfo.cfg;
+package goinfo.cfg.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.authentication.configurers.InMemoryClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.OAuth2ServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.OAuth2ServerConfigurer;
@@ -31,8 +30,8 @@ public class OAuth2ServerConfig extends OAuth2ServerConfigurerAdapter {
 
     @Bean
     @DependsOn("springSecurityFilterChain") // FIXME remove the need for @DependsOn
-    public SparklrUserApprovalHandler userApprovalHandler() throws Exception {
-        SparklrUserApprovalHandler handler = new SparklrUserApprovalHandler();
+    public UserApprovalHandler userApprovalHandler() throws Exception {
+        UserApprovalHandler handler = new UserApprovalHandler();
         handler.setTokenServices(tokenServices());
         handler.setUseTokenServices(true);
         return handler;

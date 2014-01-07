@@ -1,4 +1,4 @@
-package goinfo.cfg;
+package goinfo.cfg.dataSource;
 
 import org.springframework.boot.autoconfigure.jdbc.TomcatDataSourceConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;

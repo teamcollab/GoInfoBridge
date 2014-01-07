@@ -1,4 +1,4 @@
-package goinfo.cfg;
+package goinfo.cfg.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -11,7 +11,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 @EnableWebSecurity
 @Configuration
 @Order(2)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 

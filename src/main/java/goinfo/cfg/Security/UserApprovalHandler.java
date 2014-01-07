@@ -1,4 +1,4 @@
-package goinfo.cfg;
+package goinfo.cfg.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.provider.AuthorizationRequest;
@@ -10,7 +10,7 @@ import java.util.HashSet;
 /**
  * Created by Spooky on 2014/1/7.
  */
-public class SparklrUserApprovalHandler  extends TokenServicesUserApprovalHandler {
+public class UserApprovalHandler extends TokenServicesUserApprovalHandler {
 
     private Collection<String> autoApproveClients = new HashSet<String>();
 
@@ -45,8 +45,6 @@ public class SparklrUserApprovalHandler  extends TokenServicesUserApprovalHandle
      */
     @Override
     public boolean isApproved(AuthorizationRequest authorizationRequest, Authentication userAuthentication) {
-
-        System.out.println("isApproved = run");
 
         // If we are allowed to check existing approvals this will short circuit the decision
         if (useTokenServices && super.isApproved(authorizationRequest, userAuthentication)) {
