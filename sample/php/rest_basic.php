@@ -1,39 +1,48 @@
 <?php
 
-// Method: POST, PUT, GET etc
-// Data: array("param" => "value") ==> index.php?param=value
+$username="user";
+$password="password";
+$url="http://localhost:8889/rest/api/";
 
-function CallAPI($method, $url, $data = false)
+function callApi($url, $data = false)
 {
+    global $username, $password;
+
     $curl = curl_init();
 
-    switch ($method)
-    {
-        case "POST":
-            curl_setopt($curl, CURLOPT_POST, 1);
-
-            if ($data)
-                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-            break;
-        case "PUT":
-            curl_setopt($curl, CURLOPT_PUT, 1);
-            break;
-        default:
-            if ($data)
-                $url = sprintf("%s?%s", $url, http_build_query($data));
-    }
-
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); 
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($curl, CURLOPT_HTTPHEADER,     array('Content-Type: text/plain')); 
     // Optional Authentication:
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($curl, CURLOPT_USERPWD, "user:password");
-
+    curl_setopt($curl, CURLOPT_USERPWD, $username . ":" . $password);
+    
+    curl_setopt($curl, CURLOPT_VERBOSE, true); // Display communication with server
     curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 
     return curl_exec($curl);
 }
 
+//傳入參數定義
+$values = new stdClass();
+$values -> Code = "";
 
-echo " [.] Got ", CallAPI("get","http://localhost:8889/test/sendMsg"), "\n";				//取得 資料內容
+$message_body = json_encode(array(
+    //若沒有定義 connectname 預設為 major
+    "connectname" => "major",   //連線到 60.251.234.221/test db
+    //"connectname" => "minor", //連線到 118.163.139.167test2 db
+    "username" => "admin",
+    "queryname" => "selectall",
+    "action" => "query",
+    "password" => "password",
+    "values" => $values
+));
+
+
+
+
+echo " [.] Got ", callApi($url, $message_body), "\n";				//取得 資料內容
 
 ?>

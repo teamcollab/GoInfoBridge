@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 @EnableWebSecurity
 @Configuration
@@ -18,14 +19,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/oauth/token").fullyAuthenticated()
-                .antMatchers("/test/sendMsg").hasRole("USER")
+                .antMatchers("/test/sendMsg", "/rest/api").hasRole("USER")
                 .anyRequest().authenticated();
-//        http
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.NEVER)
-//                .sessionFixation().none()
-//                .and().csrf().disable();
+        http
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.NEVER)
+                .sessionFixation().none()
+                .and().csrf().disable();
 
         http.httpBasic();
 

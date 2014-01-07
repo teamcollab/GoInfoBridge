@@ -1,6 +1,5 @@
 package goinfo.cfg;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -9,10 +8,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.authentication.configurers.InMemoryClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.OAuth2ServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.OAuth2ServerConfigurer;
-import org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint;
 
 @EnableWebSecurity
 @Configuration
@@ -24,7 +23,7 @@ public class OAuth2ServerConfig extends OAuth2ServerConfigurerAdapter {
         auth
                 .apply(new InMemoryClientDetailsServiceConfigurer())
                     .withClient("clientId")
-                    .authorizedGrantTypes("client_credentials","implicit")
+                    .authorizedGrantTypes("client_credentials")
                     .authorities("ROLE_CLIENT")
                     .scopes("read", "write")
                     .secret("clientSecret");
@@ -48,16 +47,17 @@ public class OAuth2ServerConfig extends OAuth2ServerConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.csrf().disable()
             .authorizeRequests()
                 .antMatchers("/oauth/token").fullyAuthenticated()
-                .antMatchers("/test/sendMsg").authenticated()
+                .antMatchers("/test/sendMsg", "/rest/api").authenticated()
 //                .access("#oauth2.clientHasRole('ROLE_CLIENT') and #oauth2.isClient() and #oauth2.hasScope('read')")
 
                 .and()
             .requestMatchers()
-                .antMatchers("/test/sendMsg", "/oauth/token", "/oauth/authorize")
+                .antMatchers("/test/sendMsg", "/rest/api", "/oauth/token", "/oauth/authorize")
                 .and()
             .apply(new OAuth2ServerConfigurer());
+
     }
 }
