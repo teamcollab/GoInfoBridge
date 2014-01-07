@@ -4,8 +4,8 @@
 $clientId = "clientId";
 $clientSecret = "clientSecret";
 $postArgs = 'grant_type=client_credentials';
-$tokenUrl = 'http://localhost:8889/oauth/token'; 
-$url="http://localhost:8889/rest/api/";
+$tokenUrl = 'https://localhost:8889/oauth/token'; 
+$url="https://localhost:8889/rest/api/";
 
 function get_access_token($url, $postdata) {
         global $clientId, $clientSecret;

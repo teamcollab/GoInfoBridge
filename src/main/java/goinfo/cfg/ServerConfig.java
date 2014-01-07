@@ -20,30 +20,29 @@ public class ServerConfig {
         return new EmbeddedServletContainerCustomizer() {
             @Override
             public void customize(ConfigurableEmbeddedServletContainerFactory factory) {
-                if(factory instanceof TomcatEmbeddedServletContainerFactory){
-                    TomcatEmbeddedServletContainerFactory containerFactory = (TomcatEmbeddedServletContainerFactory) factory;
-                    containerFactory.addConnectorCustomizers(new TomcatConnectorCustomizer() {
+            if(factory instanceof TomcatEmbeddedServletContainerFactory){
+                TomcatEmbeddedServletContainerFactory containerFactory = (TomcatEmbeddedServletContainerFactory) factory;
+                containerFactory.addConnectorCustomizers(new TomcatConnectorCustomizer() {
 
-                        @Override
-                        public void customize(Connector connector) {
+                    @Override
+                    public void customize(Connector connector) {
 
-//                            connector.setPort(serverPort);
-                            connector.setSecure(true);
-                            connector.setScheme("https");
-                            connector.setAttribute("keyAlias", "tomcat");
-                            connector.setAttribute("keystorePass", "tomcat");
-                            try {
-                                connector.setAttribute("keystoreFile", ResourceUtils.getFile("/Users/Spooky/projects/goinfoBridgeService/tomcat.keystore").getAbsolutePath());
-                            } catch (FileNotFoundException e) {
-                                throw new IllegalStateException("Cannot load keystore", e);
-                            }
-                            connector.setAttribute("clientAuth", "false");
-                            connector.setAttribute("sslProtocol", "TLS");
-                            connector.setAttribute("SSLEnabled", true);
+                    connector.setSecure(true);
+                    connector.setScheme("https");
+                    connector.setAttribute("keyAlias", "tomcat");
+                    connector.setAttribute("keystorePass", "tomcat");
+                    try {
+                        connector.setAttribute("keystoreFile", ResourceUtils.getFile("/Users/Spooky/projects/goinfoBridgeService/tomcat.keystore").getAbsolutePath());
+                    } catch (FileNotFoundException e) {
+                        throw new IllegalStateException("Cannot load keystore", e);
+                    }
+                    connector.setAttribute("clientAuth", "false");
+                    connector.setAttribute("sslProtocol", "TLS");
+                    connector.setAttribute("SSLEnabled", true);
 
-                        }
-                    });
-                }
+                    }
+                });
+            }
             }
         };
     }
