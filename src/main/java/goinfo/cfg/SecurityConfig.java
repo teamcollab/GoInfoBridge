@@ -27,9 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .sessionFixation().none()
 //                .and().csrf().disable();
 
-        AjaxAwareLoginUrlAuthenticationEntryPoint ajaxAwareLoginUrlAuthenticationEntryPoint = new AjaxAwareLoginUrlAuthenticationEntryPoint();
-        ajaxAwareLoginUrlAuthenticationEntryPoint.setRealmName("testAp");
-        http.httpBasic().authenticationEntryPoint(ajaxAwareLoginUrlAuthenticationEntryPoint);
+        http.httpBasic();
 
     }
 
