@@ -49,14 +49,11 @@ public class OAuth2ServerConfig extends OAuth2ServerConfigurerAdapter {
         http.csrf().disable()
             .authorizeRequests()
                 .antMatchers("/oauth/token").fullyAuthenticated()
-                .antMatchers("/test/sendMsg", "/rest/api").authenticated()
+                .antMatchers("/test/sendMsg").authenticated()
+                .antMatchers("/rest/api").authenticated();
 //                .access("#oauth2.clientHasRole('ROLE_CLIENT') and #oauth2.isClient() and #oauth2.hasScope('read')")
 
-                .and()
-            .requestMatchers()
-                .antMatchers("/test/sendMsg", "/rest/api", "/oauth/token", "/oauth/authorize")
-                .and()
-            .apply(new OAuth2ServerConfigurer());
+        http.apply(new OAuth2ServerConfigurer());
 
     }
 }
