@@ -2,7 +2,7 @@
 
 $username="user";
 $password="password";
-$url="https://localhost:8889/rest/api/";
+$url="https://localhost:8080/rest/api/";
 
 function callApi($url, $data = false)
 {
