@@ -2,7 +2,7 @@
 
 $username="user";
 $password="password";
-$url="https://192.168.0.100:8080/rest/api/";
+$url="http://192.168.0.100:8080/rest/api/";
 
 function callApi($url, $data = false)
 {
@@ -11,7 +11,7 @@ function callApi($url, $data = false)
     $curl = curl_init();
 
     curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($postdata));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); 
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($curl, CURLOPT_HTTPHEADER,     array('Content-Type: text/plain')); 
@@ -29,7 +29,7 @@ function callApi($url, $data = false)
 $values = new stdClass();
 $values -> Code = "";
 
-$message_body = json_encode(array(
+$message_body = array(
     //若沒有定義 connectname 預設為 major
     "connectname" => "major",   //連線到 60.251.234.221/test db
     //"connectname" => "minor", //連線到 118.163.139.167test2 db
@@ -38,7 +38,7 @@ $message_body = json_encode(array(
     "action" => "query",
     "password" => "password",
     "values" => $values
-));
+);
 
 
 

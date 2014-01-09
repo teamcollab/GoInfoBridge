@@ -12,11 +12,15 @@ import org.springframework.context.annotation.Configuration;
 public class MqClientConfig {
 
 
-    final static String queueName = "reply";
-
     @Autowired
     ConnectionFactory connectionFactory;
 
+    final static String queueName = "reply";
+
+    @Bean
+    public Queue responseQueue() {
+        return new Queue(queueName);
+    }
 
     @Bean
     public RabbitTemplate amqpTemplate() {
@@ -34,10 +38,7 @@ public class MqClientConfig {
 
         return container;
     }
-    @Bean
-    public Queue responseQueue() {
-        return new Queue(queueName);
-    }
+
 
 }
 
