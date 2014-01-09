@@ -50,7 +50,7 @@ public class ApiAspect {
             result = joinPoint.proceed();
         } catch (Throwable throwable) {
             throwable.printStackTrace();
-            Map resultMap =new HashMap<String, String>();
+            Map resultMap =new HashMap<String, Object>();
             resultMap.put("success", false);
             resultMap.put("errorMessage", throwable.getLocalizedMessage());
             logger.error(throwable);
@@ -65,7 +65,7 @@ public class ApiAspect {
     }
 
     @AfterReturning(pointcut = "execution(* goinfo.service.PropertiesHoldService.getQueriesProperty(..))", returning = "result")
-    public void logExcuteSql(JoinPoint joinPoint, Object result) {
+    public void logExecuteSql(JoinPoint joinPoint, Object result) {
         Log logger = LogFactory.getLog(joinPoint.getTarget().getClass());
         logger.info("\n       sql: " + result);
 

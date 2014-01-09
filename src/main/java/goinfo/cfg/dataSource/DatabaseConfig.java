@@ -1,4 +1,4 @@
-package goinfo.cfg;
+package goinfo.cfg.dataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

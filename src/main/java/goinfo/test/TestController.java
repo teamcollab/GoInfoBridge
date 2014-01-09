@@ -5,6 +5,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -20,7 +21,8 @@ public class TestController {
     @Autowired
     ConvertService convertService;
 
-    @RequestMapping("/test/sendMsg")
+    @RequestMapping(value ="/test/sendMsg" , method = {RequestMethod.GET, RequestMethod.OPTIONS}
+            , produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String sendMsg() {
 

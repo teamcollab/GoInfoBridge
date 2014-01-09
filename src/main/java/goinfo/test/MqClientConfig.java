@@ -12,17 +12,21 @@ import org.springframework.context.annotation.Configuration;
 public class MqClientConfig {
 
 
-    final static String queueName = "reply";
-
     @Autowired
     ConnectionFactory connectionFactory;
 
+    final static String queueName = "reply";
+
+    @Bean
+    public Queue responseQueue() {
+        return new Queue(queueName);
+    }
 
     @Bean
     public RabbitTemplate amqpTemplate() {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setReplyQueue(responseQueue());
-        rabbitTemplate.setReplyTimeout(5000);
+        rabbitTemplate.setReplyTimeout(10000);
         return rabbitTemplate;
     }
     @Bean
@@ -34,10 +38,7 @@ public class MqClientConfig {
 
         return container;
     }
-    @Bean
-    public Queue responseQueue() {
-        return new Queue(queueName);
-    }
+
 
 }
 
