@@ -17,6 +17,8 @@ public class CorsFilter extends OncePerRequestFilter
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException
     {
+        String host = request.getRemoteHost();
+        System.out.println("request host = "+host );
         response.addHeader("Access-Control-Allow-Origin", "http://192.168.0.100:8080");
         response.addHeader("Access-Control-Allow-Methods", "HEAD, GET, POST, OPTIONS");
         response.addHeader("Access-Control-Allow-Headers","Authorization, Content-Type, Origin, Accept");
