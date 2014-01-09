@@ -1,6 +1,7 @@
 package goinfo.service;
 
 import goinfo.Application;
+import org.apache.tomcat.jdbc.pool.DataSource;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -70,8 +71,13 @@ public class PropDataSourceSwichServiceTests {
         List majorData = majorJdbcTemplate.queryForList("select * from TEST_TABLE");
         List minorData = minorJdbcTemplate.queryForList("select * from TEST_TABLE");
 
+
         assert !majorData.equals(minorData);
         assert !majorData.get(0).toString().equals(minorData.get(0).toString());
+
+        DataSource minorDataSourcePool = (DataSource) minorJdbcTemplate.getDataSource();
+        assert minorDataSourcePool.getValidationQuery().equals("varies");
+        assert minorDataSourcePool.isTestOnBorrow();
 
 
 
