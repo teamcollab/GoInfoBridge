@@ -30,7 +30,7 @@ public class MqClientConfig {
         return rabbitTemplate;
     }
     @Bean
-    public SimpleMessageListenerContainer listenerContainer() {
+    public SimpleMessageListenerContainer clientMessageListenerContainer() {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueues(responseQueue());
