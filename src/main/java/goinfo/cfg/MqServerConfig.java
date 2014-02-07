@@ -45,7 +45,7 @@ public class MqServerConfig {
     }
 
     @Bean
-    SimpleMessageListenerContainer container(MessageListenerAdapter listenerAdapter) {
+    SimpleMessageListenerContainer serverMessageListenerContainer(MessageListenerAdapter listenerAdapter) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueues(queue());
