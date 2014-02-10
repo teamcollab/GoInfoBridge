@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
  * TODO: 之後換成讀取資料庫裡的連線資訊，並且在啟動伺服器時建立 dataSource
  */
 @Service
-public class propertyDataSourceSwichService implements DataSourceSwichService {
+public class PropertyDataSourceSwichService implements DataSourceSwichService {
 
     @Autowired
     JdbcTemplate majorJdbcTemplate;

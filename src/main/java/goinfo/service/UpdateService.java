@@ -74,7 +74,6 @@ public class UpdateService {
         }
 
         result.put("message","受影響的資料共有 "+sqlExcuteResult+" 筆");
-
-    return result;
-}
+        return result;
+    }
 }
