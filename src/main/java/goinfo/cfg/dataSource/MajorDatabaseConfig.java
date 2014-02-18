@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 
-
 @Configuration
 @ConfigurationProperties(name = "spring.major")
 public class MajorDatabaseConfig extends TomcatDataSourceConfiguration implements DatabaseConfig {
