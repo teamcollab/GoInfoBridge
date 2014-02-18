@@ -20,10 +20,23 @@ public class QueryService {
 
     public Map excute(Map params) {
 
+        String querysql = "";
 
-        String queryname = params.get("queryname").toString();
+        if(params.get("querystring")!=null){
+            querysql = params.get("querystring").toString();
+        }else {
+            String queryname = params.get("queryname").toString();
+            querysql = propertiesHoldService.getQueriesProperty(queryname);
+        }
+
+
+
+
         String connectname = params.get("connectname").toString();
-        String querysql = propertiesHoldService.getQueriesProperty(queryname);
+
+
+
+
 
         Map result = new HashMap();
         result.put("success", true);

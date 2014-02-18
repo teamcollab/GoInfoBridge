@@ -72,7 +72,7 @@ public class OAuth2ServerConfig extends OAuth2ServerConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/test/sendMsg").authenticated()
                 .antMatchers("/rest/api").authenticated()
-                .antMatchers("/admin/.*").authenticated();
+                .antMatchers("/admin/rungc").authenticated();
 //                .access("#oauth2.clientHasRole('ROLE_CLIENT') and #oauth2.isClient() and #oauth2.hasScope('read')")
 
 
